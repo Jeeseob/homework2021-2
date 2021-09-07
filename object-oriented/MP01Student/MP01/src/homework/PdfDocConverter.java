@@ -3,7 +3,7 @@ package homework;
 public class PdfDocConverter extends DocConverter {
 
     public PdfDocConverter() {
-        super("pdf");
+        super("pdf"); //부모 클래스 생성자 이용
     }
     @Override
     public void save(String fileName) {

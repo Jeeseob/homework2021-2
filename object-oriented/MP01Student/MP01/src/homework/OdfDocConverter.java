@@ -3,7 +3,7 @@ package homework;
 public class OdfDocConverter extends DocConverter {
 
     public OdfDocConverter() {
-        super("odf");
+        super("odf"); //부모 클래스 생성자 이용
     }
     @Override
     public void save(String fileName) {

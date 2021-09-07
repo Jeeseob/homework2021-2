@@ -5,6 +5,6 @@ public class EngSpellChecker implements ISpellChecker {
 
     @Override
     public void check() {
-        System.out.println(CHECKING_MESSAGE);
+        System.out.println(CHECKING_MESSAGE); //실제로 spelling을 체크하지는 않음. (과제 요구사항 참고)
     }
 }

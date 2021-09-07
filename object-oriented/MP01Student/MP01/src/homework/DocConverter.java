@@ -1,7 +1,7 @@
 package homework;
 
 public abstract class DocConverter {
-    private String ext;
+    private String ext; // 파일 포맷 확장자
 
     public DocConverter(String extension) {
         ext = extension;

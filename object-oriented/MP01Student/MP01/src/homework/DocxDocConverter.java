@@ -3,7 +3,7 @@ package homework;
 public class DocxDocConverter extends DocConverter {
 
     public DocxDocConverter() {
-        super("docx");
+        super("docx"); //부모 클래스 생성자 이용
     }
     @Override
     public void save(String fileName) {
