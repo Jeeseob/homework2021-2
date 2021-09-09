@@ -1,9 +1,9 @@
 package homework;
 
-public class OdfDocConverter extends DocConverter {
+public class OdtDocConverter extends DocConverter {
 
-    public OdfDocConverter() {
-        super("odf"); //부모 클래스 생성자 이용
+    public OdtDocConverter() {
+        super("odt"); //부모 클래스 생성자 이용
     }
     @Override
     public void save(String fileName) {

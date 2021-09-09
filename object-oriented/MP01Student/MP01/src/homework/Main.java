@@ -6,9 +6,9 @@ public class Main {
         wp.setSpellChecker(new EngSpellChecker());
         wp.addDocConverter(new DocxDocConverter());
         wp.addDocConverter(new PdfDocConverter());
-        wp.addDocConverter(new OdfDocConverter());
+        wp.addDocConverter(new OdtDocConverter());
         wp.checkSpelling();
-        wp.convertDocTo("odf");
+        wp.convertDocTo("odt");
         wp.convertDocTo("pdf");
         wp.convertDocTo("docx");
         wp.convertDocTo("wps");
