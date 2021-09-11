@@ -24,6 +24,9 @@ public class WordProcessor {
             docConverters.get(ext).save(fileName);
             // get함수로 value값을 가져올때 바로 value값(object)으로 적용됨. 바로 함수 사용가능.
         }
+        else {
+            System.out.println(ext+"파일 형식을 지원하는 DocConverter가 없습니다.");
+        }
     }
 
     public void setSpellChecker(ISpellChecker spellChecker) {
