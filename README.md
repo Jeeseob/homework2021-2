@@ -4,7 +4,7 @@
 #### object-oriented >> 고급 객체지향 프로그래밍 
 Java를 활용한 디자인 패턴
 
-##### programming-language >> 프로그래밍 언어론   
+#### programming-language >> 프로그래밍 언어론   
 프로그래밍언어에 대한 공통점 및 언어별 특이점
 
 #### database >> 데이터 베이스
