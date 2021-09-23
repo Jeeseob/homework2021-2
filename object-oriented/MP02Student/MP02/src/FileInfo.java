@@ -29,4 +29,11 @@ public class FileInfo {
     public Date getModifiedDate() {
         return modifiedDate;
     }
+
+    public String toString() {
+        return "Name: " + this.getName()+"\n"
+        +"Type: " + this.getType()+"\n"
+        +"Size: " + this.getSize()+"\n"
+        +"ModifiedDate :" + this.getModifiedDate();
+    }
 }

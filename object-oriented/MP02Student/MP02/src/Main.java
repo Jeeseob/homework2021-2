@@ -23,11 +23,7 @@ public class Main {
 
     public void printFileLists(FileInfo[] fileLists) {
         for (FileInfo fi : fileLists) {
-            //System.out.println(fi);
-            System.out.println("Name: " + fi.getName());
-            System.out.println("Type: " + fi.getType());
-            System.out.println("Size: " + fi.getSize());
-            System.out.println("ModifiedDate :" + fi.getModifiedDate());
+            System.out.println(fi);
         }
     }
 
