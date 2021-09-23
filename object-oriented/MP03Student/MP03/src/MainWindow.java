@@ -14,7 +14,7 @@ public class MainWindow extends FrameWindow implements ActionListener {
     // Title 추가
     private static final String TEXTFIELD_OBSERVER_BUTTON_TITLE_REMOVE = "Remove TextField Window Observer";
     private static final String LABEL_OBSERVER_BUTTON_TITLE_REMOVE = "Remove Label Window Observer";
-    private static final String START_THREAD_BUTTON_TITLE = "Start Generating Prime Number";
+    //private static final String START_THREAD_BUTTON_TITLE = "Start Generating Prime Number";
 
     private static final int X = 250;
     private static final int Y = 100;
