@@ -63,33 +63,36 @@ public class PrimeObservableThread implements Runnable, Subject {
         stopRunning = false;
     }
 
-    public boolean getStopRunning() {
-        return stopRunning;
-    }
-
     private void generatePrimeNumber() {
-        while (stopRunning == false) {
-            if (first) {
-                first = false;
-                primeNumber = 2;   // 첫 번째 소수는 2
-                System.out.println(primeNumber);
-                numCount = 1; // 다음 단계부터는 2를 더해서 홀수만 확인하므로 1로 바꿔서 다음 숫자를 3으로 만들어야 함
-            } else {
-                numCount += 2; // 2를 제외한 짝수는 소수가 될 수 없음. 따라서 홀수만 검사
-                if (isPrimeNumber(numCount)) {
-                    primeNumber = numCount;
+        while (true) {
+            while (stopRunning == false) {
+                if (first) {
+                    first = false;
+                    primeNumber = 2;   // 첫 번째 소수는 2
                     System.out.println(primeNumber);
+                    numCount = 1; // 다음 단계부터는 2를 더해서 홀수만 확인하므로 1로 바꿔서 다음 숫자를 3으로 만들어야 함
+                } else {
+                    numCount += 2; // 2를 제외한 짝수는 소수가 될 수 없음. 따라서 홀수만 검사
+                    if (isPrimeNumber(numCount)) {
+                        primeNumber = numCount;
+                        System.out.println(primeNumber);
 
-                    //notify
-                    primeData.setPrimeNumber(primeNumber);
-                    notifyObserver(primeData);
+                        //notify
+                        primeData.setPrimeNumber(primeNumber);
+                        notifyObserver(primeData);
 
+                    }
+                }
+                try {
+                    Thread.sleep(SLEEPTIME); // 1초 쉼
+                } catch (InterruptedException e) {
+                    e.printStackTrace();
                 }
             }
+            // stop인 동안 Thread가 종료되지 않도록
             try {
                 Thread.sleep(SLEEPTIME); // 1초 쉼
-            }
-            catch (InterruptedException e) {
+            } catch (InterruptedException e) {
                 e.printStackTrace();
             }
         }

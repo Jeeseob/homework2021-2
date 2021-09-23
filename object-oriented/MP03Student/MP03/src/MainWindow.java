@@ -14,7 +14,7 @@ public class MainWindow extends FrameWindow implements ActionListener {
     // Title 추가
     private static final String TEXTFIELD_OBSERVER_BUTTON_TITLE_REMOVE = "Remove TextField Window Observer";
     private static final String LABEL_OBSERVER_BUTTON_TITLE_REMOVE = "Remove Label Window Observer";
-    //private static final String START_THREAD_BUTTON_TITLE = "Start Generating Prime Number";
+    private static final String START_THREAD_BUTTON_TITLE = "Start Generating Prime Number";
 
     private static final int X = 250;
     private static final int Y = 100;
@@ -45,17 +45,17 @@ public class MainWindow extends FrameWindow implements ActionListener {
                 System.exit(0);
             }
         });
-
-        // 리펙토링 가능한지.
-        primeThread = new PrimeObservableThread(); // ��ü ����
-
+        // 리펙토링이 가능할까.. 옵저버 추가하려면 여기도 수정해야됨...
+        // updateText가 Abstract class와 관련없어서 FrameWindow에 updateText를 추가하고
+        // Override로 만들어서 FrameWindow ArrayList로 만들면??
+        primeThread = new PrimeObservableThread();
         labelWindowObserver = new LabelWindowObserver(labelWindow);
         textFieldWindowObserver = new TextFieldWindowObserver(textFieldWindow);
 
         primeThread.addObserver((Observer) labelWindowObserver);
         primeThread.addObserver((Observer) textFieldWindowObserver);
-
         primeThread.run();
+
     }
 
     public JPanel createPanel(int width, int height) {
@@ -96,12 +96,12 @@ public class MainWindow extends FrameWindow implements ActionListener {
         }
         else if (e.getSource() == generatingButton) {
             if(generatingButton.getText().equals(STOP_THREAD_BUTTON_TITLE)) {
-                generatingButton.setText("Already Stop Generating Prime Number");
+                generatingButton.setText(START_THREAD_BUTTON_TITLE);
                 primeThread.stopRunning();
             }
             else {
-//                generatingButton.setText(STOP_THREAD_BUTTON_TITLE);
-//                primeThread.startRunning();
+                generatingButton.setText(STOP_THREAD_BUTTON_TITLE);
+                primeThread.startRunning();
             }
         }
     }
@@ -117,6 +117,6 @@ public class MainWindow extends FrameWindow implements ActionListener {
     }
 
     public static void main(String[] args) {
-        MainWindow mainWindow = new MainWindow(MainWindow.MAIN_TITLE);
+            MainWindow mainWindow = new MainWindow(MainWindow.MAIN_TITLE);
     }
 }
