@@ -6,10 +6,6 @@
 Java를 활용한 디자인 패턴
 </br>
 </br>
-#### programming-language >> 프로그래밍 언어론   
-프로그래밍언어에 대한 공통점 및 언어별 특이점
-</br>
-</br>
 #### UNIX-programming >> 유닉스 프로그래밍
 유닉스 환경에서의 프로그래밍 C언어 기반
 </br>
