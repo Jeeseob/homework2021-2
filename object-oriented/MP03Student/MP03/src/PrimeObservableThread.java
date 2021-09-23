@@ -1,6 +1,6 @@
 import java.util.ArrayList;
 
-public class PrimeObservableThread implements Runnable {
+public class PrimeObservableThread implements Runnable, Subject {
     private static final int SLEEPTIME = 500;
 
     private int primeNumber;
@@ -8,7 +8,47 @@ public class PrimeObservableThread implements Runnable {
     private boolean first = true;
     private boolean stopRunning = false;
 
+    // Variable 추가
+    private ArrayList<Observer> observers = new ArrayList<Observer>();
+    private PrimeData primeData = new PrimeData();
+
     public PrimeObservableThread() {
+
+    }
+
+    // Subject Override
+    @Override
+    public void addObserver(Observer observer) {
+        observers.add(observer);
+    }
+
+    @Override
+    public void removeObserver(Observer observer) {
+        int i = observers.indexOf(observer);
+        if (i >= 0) {
+            observers.remove(i);
+        }
+    }
+
+    @Override
+    public void notifyObserver(Object object) {
+        for(int i = 0; i < observers.size(); i++) {
+            observers.get(i).update(this,object);
+        }
+    }
+
+    public void notifyAll(Object object) {
+        if (object instanceof PrimeData) {
+            PrimeData primeData = (PrimeData) object;
+            int primeNumber = primeData.getPrimeNumber();
+            //window.updateText(Integer.toString(primeNumber));
+        }
+    }
+
+
+    @Override
+    public void run() {
+        generatePrimeNumber();
     }
 
     public int getPrimeNumber() {
@@ -21,7 +61,10 @@ public class PrimeObservableThread implements Runnable {
 
     public void startRunning() {
         stopRunning = false;
-        run();
+    }
+
+    public boolean getStopRunning() {
+        return stopRunning;
     }
 
     private void generatePrimeNumber() {
@@ -36,6 +79,11 @@ public class PrimeObservableThread implements Runnable {
                 if (isPrimeNumber(numCount)) {
                     primeNumber = numCount;
                     System.out.println(primeNumber);
+
+                    //notify
+                    primeData.setPrimeNumber(primeNumber);
+                    notifyObserver(primeData);
+
                 }
             }
             try {
@@ -54,10 +102,5 @@ public class PrimeObservableThread implements Runnable {
             }
         }
         return true;
-    }
-
-    @Override
-    public void run() {
-        generatePrimeNumber();
     }
 }

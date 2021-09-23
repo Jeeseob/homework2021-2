@@ -1,26 +1,36 @@
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.*;
+import java.util.ArrayList;
 
 public class MainWindow extends FrameWindow implements ActionListener {
     private static final String MAIN_TITLE = "Main Window";
     private static final String TEXTFIELD_WINDOW_TITLE = "TextField Window";
     private static final String LABEL_WINDOW_TITLE = "Label Window";
-    private static final String TEXTFIELD_OBSERVER_BUTTON_TITLE = "Update TextField Window Observer";
-    private static final String LABEL_OBSERVER_BUTTON_TITLE = "Update Label Window Observer";
+    private static final String TEXTFIELD_OBSERVER_BUTTON_TITLE = "Add TextField Window Observer";
+    private static final String LABEL_OBSERVER_BUTTON_TITLE = "Add Label Window Observer";
     private static final String STOP_THREAD_BUTTON_TITLE = "Stop Generating Prime Number";
+
+    // Title Ï∂îÍ∞Ä
+    private static final String TEXTFIELD_OBSERVER_BUTTON_TITLE_REMOVE = "Remove TextField Window Observer";
+    private static final String LABEL_OBSERVER_BUTTON_TITLE_REMOVE = "Remove Label Window Observer";
+    private static final String START_THREAD_BUTTON_TITLE = "Start Generating Prime Number";
+
     private static final int X = 250;
     private static final int Y = 100;
     private static final int WIDTH = 600;
     private static final int HEIGHT = 200;
     private static final int GAP = 50;
 
-    private JButton stopButton;
+    private JButton generatingButton;
     private JButton updateTextFieldObserverButton;
     private JButton updateLabelObserverButton;
     private PrimeObservableThread primeThread;
     private TextFieldWindow textFieldWindow;
     private LabelWindow labelWindow;
+    // Variable Ï∂îÍ∞Ä
+    private LabelWindowObserver labelWindowObserver;
+    private TextFieldWindowObserver textFieldWindowObserver;
 
     public MainWindow(String title) {
         super(title, X, Y, WIDTH, HEIGHT);
@@ -36,35 +46,63 @@ public class MainWindow extends FrameWindow implements ActionListener {
             }
         });
 
-        primeThread = new PrimeObservableThread(); // ∞¥√º ª˝º∫
-        
-        primeThread.run();  // º“ºˆ ª˝º∫ Ω√¿€. ¿Ã «‘ºˆ∞° Ω««‡µ» »ƒø°¥¬ stopButton¿Ã ¥≠∏Æ±‚ ¿¸±Ó¡ˆ π´«— π›∫πµ 
+        // Î¶¨ÌéôÌÜ†ÎßÅ Í∞ÄÎä•ÌïúÏßÄ.
+        primeThread = new PrimeObservableThread(); // ÔøΩÔøΩ√º ÔøΩÔøΩÔøΩÔøΩ
+
+        labelWindowObserver = new LabelWindowObserver(labelWindow);
+        textFieldWindowObserver = new TextFieldWindowObserver(textFieldWindow);
+
+        primeThread.addObserver((Observer) labelWindowObserver);
+        primeThread.addObserver((Observer) textFieldWindowObserver);
+
+        primeThread.run();
     }
 
     public JPanel createPanel(int width, int height) {
         JPanel panel = new JPanel();
         panel.setLayout(new BoxLayout(panel, BoxLayout.Y_AXIS));
         panel.setPreferredSize(new Dimension(width, height));
-        updateTextFieldObserverButton = createButton(TEXTFIELD_OBSERVER_BUTTON_TITLE, this, width, height);
+        updateTextFieldObserverButton = createButton(TEXTFIELD_OBSERVER_BUTTON_TITLE_REMOVE, this, width, height);
         panel.add(updateTextFieldObserverButton);
-        updateLabelObserverButton = createButton(LABEL_OBSERVER_BUTTON_TITLE, this, width, height);
+        updateLabelObserverButton = createButton(LABEL_OBSERVER_BUTTON_TITLE_REMOVE, this, width, height);
         panel.add(updateLabelObserverButton);
-        stopButton = createButton(STOP_THREAD_BUTTON_TITLE, this, width, height);
-        panel.add(stopButton);
+        generatingButton = createButton(STOP_THREAD_BUTTON_TITLE, this, width, height);
+        panel.add(generatingButton);
         return panel;
     }
 
     @Override
     public void actionPerformed(ActionEvent e) {
         if (e.getSource() == updateTextFieldObserverButton) {
-            textFieldWindow.updateText("" + primeThread.getPrimeNumber());
-            updateTextFieldObserverButton.setText(TEXTFIELD_OBSERVER_BUTTON_TITLE + " 2");
+            if (updateTextFieldObserverButton.getText().equals(TEXTFIELD_OBSERVER_BUTTON_TITLE)) {
+                updateTextFieldObserverButton.setText(TEXTFIELD_OBSERVER_BUTTON_TITLE_REMOVE);
+                primeThread.addObserver((Observer) textFieldWindowObserver);
+            } else {
+                updateTextFieldObserverButton.setText(TEXTFIELD_OBSERVER_BUTTON_TITLE);
+                textFieldWindow.updateText("" + primeThread.getPrimeNumber());
+                primeThread.removeObserver((Observer) textFieldWindowObserver);
+            }
         }
         else if (e.getSource() == updateLabelObserverButton) {
-            labelWindow.updateText("" + primeThread.getPrimeNumber());
+            if(updateLabelObserverButton.getText().equals(LABEL_OBSERVER_BUTTON_TITLE)) {
+                updateLabelObserverButton.setText(LABEL_OBSERVER_BUTTON_TITLE_REMOVE);
+                primeThread.addObserver((Observer) labelWindowObserver);
+            }
+            else {
+                updateLabelObserverButton.setText(LABEL_OBSERVER_BUTTON_TITLE);
+                labelWindow.updateText("" + primeThread.getPrimeNumber());
+                primeThread.removeObserver((Observer) labelWindowObserver);
+            }
         }
-        else if (e.getSource() == stopButton) {
-            primeThread.stopRunning();
+        else if (e.getSource() == generatingButton) {
+            if(generatingButton.getText().equals(STOP_THREAD_BUTTON_TITLE)) {
+                generatingButton.setText("Already Stop Generating Prime Number");
+                primeThread.stopRunning();
+            }
+            else {
+//                generatingButton.setText(STOP_THREAD_BUTTON_TITLE);
+//                primeThread.startRunning();
+            }
         }
     }
 
