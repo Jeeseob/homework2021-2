@@ -8,7 +8,7 @@ while (($num1 <= 9))
 		while (($num2 <= 9))
 			do
 				let result=$num1*$num2
-				printf "$result\t"
+				printf "%3d" "$result"
 				let num2+=1
 			done
 	printf "\n"
