@@ -103,7 +103,7 @@ public class MainWindow extends FrameWindow {
         ArrayList<String> list;
         LoadHudDisplays loadDisplay = new LoadHudDisplays(displayFileName);
         list = loadDisplay.load();
-        System.out.printf("display.size() = %d\n", list.size());
+        System.out.printf("displ ay.size() = %d\n", list.size());
         for (String s : list) {
             System.out.println(s);
         }

@@ -1,0 +1,23 @@
+
+//실습 join
+
+// exercise 6) 고객과 주문에 관한 데이터를 모두 보이시오.
+
+select * from customer natural join orders;
+
+// exercise 7) 고객의 이름과 고객이 주문한 도서의 가격을 검색하시오.
+
+select name, saleprice from customer natural join orders;
+
+// exercise 8) 고객의 이름과 고객이 주문한 도서의 이름을 구하시오.
+
+select name, bookname from customer natural join book natural join orders;
+
+// exercise 9) 가격이 20,000원인 도서를 주문한 고객의 이름과 도서의 이름을 구하시오.
+
+select name, bookname from customer natural join book natural join orders where price=20000;
+
+//exercise 10) 고객과 고객의 주문에 관한 데이터를 고객별로 정렬하여 보이시오.
+
+select * from customer natural join orders;
+

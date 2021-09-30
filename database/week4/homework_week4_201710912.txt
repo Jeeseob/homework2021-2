@@ -1,0 +1,129 @@
+// 201710912 컴퓨터 과학과 김지섭
+// DataBase 4주차 과제 SQL Query 실습
+
+// mysql 실습 부분
+
+create databases dbclass;
+
+show databases;
+
+use dbclass;
+
+create table department (
+	dept_name varchar(20),
+	building varchar(15),
+	budget numeric(12,2),
+	primary key(dept_name));
+
+create table instructor (
+	ID char(5),
+	name varchar(20) not null,
+	dept_name varchar(20),
+	salary numeric(8,2),
+	primary key(ID),
+	foreign key(dept_name) references department(dept_name));
+
+show tables;
+
+desc instructor;
+desc department;
+
+insert into department values ('Comp. Sci.','Taylor', 100000);
+insert into department valuse ('Physics', 'Watson', 70000);
+
+insert into instructor values ('10101', 'Srinivansan', 'Comp. Sci.', 65000);
+insert into instructor values ('22222', 'Einstein', 'Physics', 95000);
+
+
+
+// 실습 : 서접 데이터 부분
+
+// create tables and insert data...
+
+use dbclass;
+
+create table Book(
+	bookid int auto_increment,
+	bookname varchar(20),
+	publisher varchar(20),
+	price int,
+	primary key(bookid));
+
+create table Customer(
+	custid int auto_increment,
+	name varchar(10),
+	address varchar(30),
+	phone char(13),
+	primary key(custid));
+
+create table Orders(
+	orderid int auto_increment,
+	custid int,
+	bookid int,
+	saleprice int,
+	orderdate char(10),
+	primary key(orderid),
+	foreign key(bookid) references Book(bookid),
+	foreign key(custid) references Customer(custid));
+
+insert into book values(1, '축구의 역사', '굿스포츠', 7000);
+insert into book values(2, '축구 아는 여자', '나무수', 13000);
+insert into book values(3, '축구의 이해', '대한미디어', 22000);
+insert into book values(4, '골프 바이블', '대한미디어'. 35000);
+insert into book values(5, '피겨 교본', '굿스포츠', 8000);
+insert into book values(6, '역도 단계별기술', '굿스포츠', 6000);
+insert into book values(7, '야구의 추억', '이상미디어', 20000);
+insert into book values(8, '야구를 부탁해', '이상미디어', 13000);
+insert into book values(9, '올림픽 이야기', '삼성당', 7500);
+insert into book values(10, 'Olympic Champions', 'Pearson', 13000);
+
+select * from book;
+
+insert into Customer values(1, '박지성', '영국 맨체스타','000-5000-0011');
+insert into Customer values(2, '김연아', '대한민국 서울', '000-6000-0001');
+insert into Customer values(3, '장미란', '대한민국 강원도', '000-7000-0001');
+insert into Customer values(4, '추신수', '미국 클리블랜드', '000-8000-0001');
+insert into Customer values(5, '박세리', '대한민국 대전', Null);
+
+select * from Customer;
+
+insert into Orders values (1,1,1, 6000,'2013-07-01');
+insert into Orders values (2,1,3, 21000,'2013-07-03');
+insert into Orders values (3,2,5, 8000,'2013-07-03');
+insert into Orders values (4,3,6, 6000,'2013-07-04');
+insert into Orders values (5,4,7, 20000,'2013-07-05');
+insert into Orders values (6,1,2, 12000,'2013-07-07');
+insert into Orders values (7,4,8, 13000,'2013-07-07');
+insert into Orders values (8,3,10, 12000,'2013-07-08');
+insert into Orders values (9,2,10, 7000,'2013-07-09');
+insert into Orders values (10,3,8, 13000,'2013-07-10');
+
+select * from orders;
+
+
+
+//실습 select
+
+// exercise 1) 모든 도서의 이름과 가격을 검색하시오.
+
+select bookname, price from book;
+
+// exercise 2) 모든 도서의 도서번호, 도서 이름, 출판사, 가격을 검색하시오.
+
+select * from book;
+
+// exercise 3) 도서 테이블에 있는 모든 출판사를 검색하시오.
+
+select distinct publisher from book;
+
+// exercise 4) 가격이 20,000원 미만인 도서를 검색하시오.
+
+select bookname, price from book where price<20000;
+
+// exercise 5) 가격이 10,000원 이상 20,000이하인 도서를 검색하시오.
+
+select bookname, price from book where price>=10000 and price<=20000;
+
+
+
+
