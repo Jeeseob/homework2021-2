@@ -25,15 +25,15 @@ public class MainWindow extends FrameWindow {
         frame = new JFrame(title);
         // 화면 크기 지정 (윈도우 화면의 너비와 높이는 매개 변수로 전달됨)
         frame.setBounds(x, y, width, height);
-        
+
         // createPanel() 함수를 호출해서 파일에서 읽은 디스플레이 구성 요소에 따라 디스플레이를 조합하고, 전체 디스플레이를 구성하는 패널을 돌려 받음
         // 실질적인 화면 구성은 createPanel()함수에서 일어남
         JPanel panel = createPanel(width, height);
-        
+
         // 윈도우에 전체 패널을 붙임        
         frame.getContentPane().add(panel);
         frame.pack();
-        
+
         // 윈도우를 화면에 보이게 만듦
         frame.setVisible(true);
         return frame;
@@ -69,7 +69,7 @@ public class MainWindow extends FrameWindow {
 
         // 기본 컴포넌트 생성. HudDisplay는 가장 기본적인 디스플레이 구성요소가 됨
         Display display = new HudDisplay(WIDTH, HEIGHT);
-        
+
         // 리스트에 있는 내용을 바탕으로 장식 추가하기. 장식을 추가하는 것은 현재까지 구성된 디스플레이 패널을 감쌀 수 있는 새로운 패널을 생성하고,
         // 그 안에 여태까지 만들어진 패널과 글씨를 쓸 수 있는 LabelPanel을 추가함
         // 새로운 장식이 추가될 때마다 새로운 패널이 생성되고, 그 안에 기존 패널이 추가됨(add)
@@ -103,7 +103,7 @@ public class MainWindow extends FrameWindow {
         ArrayList<String> list;
         LoadHudDisplays loadDisplay = new LoadHudDisplays(displayFileName);
         list = loadDisplay.load();
-        System.out.printf("displ ay.size() = %d\n", list.size());
+        System.out.printf("display.size() = %d\n", list.size());
         for (String s : list) {
             System.out.println(s);
         }
