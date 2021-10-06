@@ -1,11 +1,13 @@
 clear;
 
 % Parameter Setting
-Tsym = 1;
-Nsym = 1000;
-Fs = 100;
-Fc = 10;
-Fe = 0;
+
+Tsym = 1; % symbol duration
+Nsym = 1000; % number of symbol
+Fs = 100; % sampling size
+Fc = 10; % carrier frequency
+Fe = 0; % 나중을 위해서  일단 남겨둔다.
+
 N0 = 0.2;
 
 % Simulation
@@ -32,10 +34,10 @@ phi2 = phi2/Es;
 %% TX
 
 % 랜덤신호만들기
-m = randi(M,1,Nsym);
+m = randi(M,1,Nsym); %1~M 중 Nsym 갯수 만큼 랜덤
 
 % 심볼신호 만들기
-theta_m = 2*pi*(m-1)/M + pi/4;
+theta_m = 2*pi*(m-1)/M + pi/4;% m이 벡터이기 때문에 theta_m도 벡터로 표현(값이 여러개)
 bbSym = cos(theta_m) + j*sin(theta_m);
 
 % Up-conversion (DAC 포함)

@@ -8,7 +8,7 @@ t = [1/fs : 1/fs : Ts];
 y1 = real(symbol1)*cos(2*pi/Ts*t) - imag(symbol1)*sin(2*pi/Ts*t);
 y2 = real(symbol2)*cos(2*pi/Ts*t) - imag(symbol2)*sin(2*pi/Ts*t);
 y3 = real(symbol3)*cos(2*pi/Ts*t) - imag(symbol3)*sin(2*pi/Ts*t);
-r
+
 figure(2)
 
 plot(t, y1, 'bo');
