@@ -16,11 +16,20 @@ Tmax = length(t);
 
 % Symbol 생성
 M=4;
-symTable = zeros(1,4);
+symTable = zeros(2,16);
 
-for i = 1:M
-    i_m = 2*pi*(i-1)/M + pi/4;
-    symTable(i) = cos(i_m) + j*sin(i_m);
+for i = length(symTable)
+    if mod(i,M) == 0
+        symTable(1,i) = 3;
+    else
+        symTable(1,i) = 2*mod(i,M)-1-M;
+    end
+    
+    if fix(i/M) == 0
+        symTable(2,i) = 3;
+    else        
+        symTable(2,i) = 2*fix(i/M)-1-M;
+    end
 end
 % Basis Signal 생성
 phi1 = cos(2*pi*Fc*t(1:Tsym*Fs));
@@ -34,18 +43,32 @@ phi2 = phi2/Es;
 %% TX
 
 % 랜덤신호만들기
-m = randi(M,1,Nsym); %1~M 중 Nsym 갯수 만큼 랜덤
+m = randi(16,1,Nsym); %1~M 중 Nsym 갯수 만큼 랜덤
 
 % 심볼신호 만들기
+bbsym = zeros(2,Nsym);
 
-theta_m = 2*pi*(m-1)/M + pi/4;% m이 벡터이기 때문에 theta_m도 벡터로 표현(값이 여러개)
-bbSym = cos(theta_m) + j*sin(theta_m);
+
+for i = 1:length(m)
+    if mod(m(i),M) == 0
+        bbsym(1,i) = 3;
+    else
+        bbsym(1,i) = 2*mod(m(i),M)-1-M;
+    end
+    
+    if fix(m(i)/M) == 0
+        bbsym(2,i) = 3;
+    else        
+        bbsym(2,i) = 2*fix(m(i)/M)-1-M;
+    end
+end
+
 
 % Up-conversion (DAC 포함)
 RFsignal = zeros(1,Tmax);
 for iterT = 1:Tmax
     iterSym = floor((iterT-1)/Fs)+1;
-    RFsignal(iterT) = real(bbSym(iterSym))*cos(2*pi*Fc*t(iterT))/Es - imag(bbSym(iterSym))*sin(2*pi*Fc*t(iterT))/Es;
+    RFsignal(iterT) = real(bbsym(1,iterSym))*cos(2*pi*Fc*t(iterT))/Es - real(bbsym(2,iterSym))*sin(2*pi*Fc*t(iterT))/Es;
 end
 
 % 참고1 - signal 보여주기
@@ -64,7 +87,7 @@ end
 figure(2)
 scatter(s(1,:),s(2,:),'r*');
 grid on;
-axis([-2 2 -2 2]);
+axis([-4 4 -4 4]);
 
 
 %% RX
@@ -89,7 +112,7 @@ SNR = 10*log10(sigPower/noisePower)
 figure(3)
 scatter(real(bbSymN_rx), imag(bbSymN_rx));
 grid on;
-axis([-2 2 -2 2]);
+axis([-4 4 -4 4]);
 hold on;
 scatter(s(1,:),s(2,:),'r*');
 
@@ -98,8 +121,7 @@ hd_bbSym = zeros(1,Nsym);
 for i= 1:Nsym
     corr_result = bbSymN_rx(i)*conj(symTable);
     [dammyVal hd_index] = max(real(corr_result));
-    hd_index
     hd_bbSym(i) = symTable(hd_index);
 end
 
-SER = sum( abs(hd_bbSym - bbSym) > 0.01) /Nsym
+SER = sum( abs(hd_bbSym - bbsym) > 0.01) /Nsym
