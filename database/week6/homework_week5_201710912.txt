@@ -1,0 +1,37 @@
+
+select bookname 
+from book 
+where price = (select max(price) from book);
+
+select name
+from customer
+where custid in (select custid from orders);
+
+select bookname
+from book natural join (select publisher, avg(price) as avgprice
+	from book
+	group by publisher) as avg
+where price > avgprice;
+
+select bookname
+from book as b
+where price>(select avg(price)
+	from book as avg
+	where b.publisher = avg.publisher);
+
+
+select name, address
+from customer
+where custid in (select custid from orders);
+
+insert into book values(11, '스포츠의학', '한솔의학서적', 90000);
+
+update customer set address = '대한민국 부산'  where custid = 5;
+
+update customer as p ,(select address from customer where name = '김연아')as k set p.address = k.address where name = '박세리';
+
+delete from customer where custid = 5;
+
+delete from customer; 
+
+
