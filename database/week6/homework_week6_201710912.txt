@@ -31,7 +31,7 @@ update customer set address = '대한민국 부산'  where custid = 5;
 update customer as p ,(select address from customer where name = '김연아')as k set p.address = k.address where name = '박세리';
 
 delete from customer where custid = 5;
-
+ 
 delete from customer; 
 
 
