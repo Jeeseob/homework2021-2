@@ -8,7 +8,7 @@ Fs = 100; % sampling size
 Fc = 10; % carrier frequency
 Fe = 0; % 나중을 위해서  일단 남겨둔다.
 
-N0 = 0.015;
+N0 = 0.1;
 
 % Simulation
 t = [Tsym/Fs : Tsym/Fs : Tsym*Nsym];
@@ -16,19 +16,13 @@ Tmax = length(t);
 
 % Symbol 생성
 M=4;
-symTable = zeros(2,16);
+symTable = zeros(1,16);
 
-for i = length(symTable)
+for i = 1:length(symTable)
     if mod(i,M) == 0
-        symTable(1,i) = 3;
+        symTable(i) = (2*fix(i/M)-1-M)*j+3;
     else
-        symTable(1,i) = 2*mod(i,M)-1-M;
-    end
-    
-    if fix(i/M) == 0
-        symTable(2,i) = 3;
-    else        
-        symTable(2,i) = 2*fix(i/M)-1-M;
+        symTable(i) = (2*(fix(i/M)+1)-1-M)*j+2*mod(i,M)-1-M;
     end
 end
 % Basis Signal 생성
@@ -46,29 +40,20 @@ phi2 = phi2/Es;
 m = randi(16,1,Nsym); %1~M 중 Nsym 갯수 만큼 랜덤
 
 % 심볼신호 만들기
-bbsym = zeros(2,Nsym);
-
+bbSym = zeros(1,Nsym);
 
 for i = 1:length(m)
     if mod(m(i),M) == 0
-        bbsym(1,i) = 3;
+        bbSym(i) = (2*fix(m(i)/M)-1-M)*j+3;
     else
-        bbsym(1,i) = 2*mod(m(i),M)-1-M;
-    end
-    
-    if fix(m(i)/M) == 0
-        bbsym(2,i) = 3;
-    else        
-        bbsym(2,i) = 2*fix(m(i)/M)-1-M;
+        bbSym(i) = (2*(fix(m(i)/M)+1)-1-M)*j+2*mod(m(i),M)-1-M;
     end
 end
-
-
 % Up-conversion (DAC 포함)
 RFsignal = zeros(1,Tmax);
 for iterT = 1:Tmax
     iterSym = floor((iterT-1)/Fs)+1;
-    RFsignal(iterT) = real(bbsym(1,iterSym))*cos(2*pi*Fc*t(iterT))/Es - real(bbsym(2,iterSym))*sin(2*pi*Fc*t(iterT))/Es;
+    RFsignal(iterT) = real(bbSym(iterSym))*cos(2*pi*Fc*t(iterT))/Es - imag(bbSym(iterSym))*sin(2*pi*Fc*t(iterT))/Es;
 end
 
 % 참고1 - signal 보여주기
@@ -118,10 +103,13 @@ scatter(s(1,:),s(2,:),'r*');
 
 % Optimal Receiver
 hd_bbSym = zeros(1,Nsym);
+index = zeros(1,Nsym);
 for i= 1:Nsym
     corr_result = bbSymN_rx(i)*conj(symTable);
     [dammyVal hd_index] = max(real(corr_result));
+    
+    
     hd_bbSym(i) = symTable(hd_index);
 end
+SER = sum( abs(hd_bbSym - bbSym) > 0.01) /Nsym
 
-SER = sum( abs(hd_bbSym - bbsym) > 0.01) /Nsym
