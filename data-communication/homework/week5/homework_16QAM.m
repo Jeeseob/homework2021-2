@@ -8,7 +8,7 @@ Fs = 100; % sampling size
 Fc = 10; % carrier frequency
 Fe = 0; % 나중을 위해서  일단 남겨둔다.
 
-N0 = 0.1;
+N0 = 0.002;
 
 % Simulation
 t = [Tsym/Fs : Tsym/Fs : Tsym*Nsym];
@@ -103,13 +103,10 @@ scatter(s(1,:),s(2,:),'r*');
 
 % Optimal Receiver
 hd_bbSym = zeros(1,Nsym);
-index = zeros(1,Nsym);
 for i= 1:Nsym
     corr_result = bbSymN_rx(i)*conj(symTable);
     [dammyVal hd_index] = max(real(corr_result));
-    
-    
     hd_bbSym(i) = symTable(hd_index);
 end
-SER = sum( abs(hd_bbSym - bbSym) > 0.01) /Nsym
+SER = sum(abs(hd_bbSym - bbSym) > 0.01) /Nsym
 

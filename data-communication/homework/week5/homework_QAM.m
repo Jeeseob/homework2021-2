@@ -8,7 +8,7 @@ Fs = 100; % sampling size
 Fc = 10; % carrier frequency
 Fe = 0; % 나중을 위해서  일단 남겨둔다.
 
-N0 = 0.0002;
+N0 = 0.015;
 
 % Simulation
 t = [Tsym/Fs : Tsym/Fs : Tsym*Nsym];
