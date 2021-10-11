@@ -8,7 +8,7 @@ Fs = 100; % sampling size
 Fc = 10; % carrier frequency
 Fe = 0; % 나중을 위해서  일단 남겨둔다.
 
-N0 = 0.002;
+N0 = 0.5;
 
 % Simulation
 t = [Tsym/Fs : Tsym/Fs : Tsym*Nsym];
@@ -104,8 +104,10 @@ scatter(s(1,:),s(2,:),'r*');
 % Optimal Receiver
 hd_bbSym = zeros(1,Nsym);
 for i= 1:Nsym
-    corr_result = bbSymN_rx(i)*conj(symTable);
-    [dammyVal hd_index] = max(real(corr_result));
+    % 각 값과의 거리를 이용하여 가장 가까운 위치의 값으로 추측
+    corr_result = (real(bbSym_rx(i))-real(symTable)).^2 + (imag(bbSymN_rx(i))-imag(symTable)).^2;
+    % 거리로 계산 하기 때문에 가장 짧은 거리를 가진 값의 index를 활용한다.
+    [dammyVal hd_index] = min(corr_result);
     hd_bbSym(i) = symTable(hd_index);
 end
 SER = sum(abs(hd_bbSym - bbSym) > 0.01) /Nsym

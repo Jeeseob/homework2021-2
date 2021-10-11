@@ -96,7 +96,9 @@ scatter(s(1,:),s(2,:),'r*');
 hd_bbSym = zeros(1,Nsym);
 for i= 1:Nsym
     corr_result = bbSymN_rx(i)*conj(symTable);
+    
     [dammyVal hd_index] = max(real(corr_result));
+    
     hd_bbSym(i) = symTable(hd_index);
 end
 
