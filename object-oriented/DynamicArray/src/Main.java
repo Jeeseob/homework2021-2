@@ -10,10 +10,10 @@ public class Main {
             arr.add(i);
         }
 
-//        System.out.println("for문과 get() 사용");
-//        for (int i = 0; i < arr.size(); i++) {
-//            System.out.println(arr.get(i));
-//        }
+        System.out.println("for문과 get() 사용");
+        for (int i = 0; i < arr.size(); i++) {
+            System.out.println(arr.get(i));
+        }
 
         System.out.println("for문과 iterator 사용");
         for (Iterator itr = arr.iterator(); itr.hasNext(); ) {
