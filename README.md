@@ -19,4 +19,4 @@ mysql 및 Java를 활용한 데이터베이스
 </br>
 </br>
 #### user-interface >> 사용자 인터페이스
-UI 설계 및 
+UI 설계 및 분석 과제는 UI 개념을 기반으로 ppt제작
