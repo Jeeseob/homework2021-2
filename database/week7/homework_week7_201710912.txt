@@ -1,0 +1,51 @@
+
+create view orderbook as 
+	select * 
+	from orders natural join book;
+
+select name, price
+	from customer left outer join orderbook on 
+	customer.custid = orderbook.custid;
+
+
+create view vw_Customer as
+	select *
+	from customer
+	where address like '%대한민국%';
+
+select * from vw_Customer;
+
+
+create view cust_book_name as
+	select orderid, customer.custid, bookid, saleprice, orderdate, bookname, customer.name
+	from customer left outer join orderbook on 
+	customer.custid = orderbook.custid;
+
+select orderid, bookname, saleprice
+	from cust_book_name
+	where name = '김연아'; 
+
+
+drop view vw_Customer;
+
+
+alter table orders drop foreign key orders_ibfk_1;
+alter table orders drop foreign key orders_ibfk_2;
+
+alter table orders 
+	add foreign key(bookid) references Book(bookid) 
+	on delete cascade
+	on update cascade;
+
+alter table orders 
+	add foreign key(custid) references Customer(custid) 
+	on delete cascade
+	on update cascade;
+
+delete from customer where name = '박지성';
+
+
+update customer set custid = 12 where name = '김연아';
+
+
+delete from book where publisher = '굿 스포츠';
