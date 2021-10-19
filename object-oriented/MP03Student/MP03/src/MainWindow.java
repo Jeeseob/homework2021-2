@@ -73,6 +73,7 @@ public class MainWindow extends FrameWindow implements ActionListener {
 
     @Override
     public void actionPerformed(ActionEvent e) {
+        // e.getSource()가 어떤 Jbutton에서 일어난 건지 확인하고, 그에 맞는 작업 실행.
         if (e.getSource() == updateTextFieldObserverButton) {
             if (updateTextFieldObserverButton.getText().equals(TEXTFIELD_OBSERVER_BUTTON_TITLE)) {
                 updateTextFieldObserverButton.setText(TEXTFIELD_OBSERVER_BUTTON_TITLE_REMOVE);
