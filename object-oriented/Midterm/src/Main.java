@@ -1,5 +1,3 @@
-// 201710912 김지섭입니다.
-// ID는 '설악산단풍'으로 하겠습니다.
 
 public class Main {
     public static void main(String[] args) {
