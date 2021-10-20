@@ -1,4 +1,0 @@
-time
-weather
-speed
-speed

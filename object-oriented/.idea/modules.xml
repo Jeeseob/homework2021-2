@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="ProjectModuleManager">
+    <modules>
+      <module fileurl="file://$PROJECT_DIR$/Answer/DynamicArray/DynamicArray.iml" filepath="$PROJECT_DIR$/Answer/DynamicArray/DynamicArray.iml" />
+      <module fileurl="file://$PROJECT_DIR$/MP01Student/MP01Student.iml" filepath="$PROJECT_DIR$/MP01Student/MP01Student.iml" />
+      <module fileurl="file://$PROJECT_DIR$/Answer/MP01code/MP01code.iml" filepath="$PROJECT_DIR$/Answer/MP01code/MP01code.iml" />
+      <module fileurl="file://$PROJECT_DIR$/MP02Student/MP02Student.iml" filepath="$PROJECT_DIR$/MP02Student/MP02Student.iml" />
+      <module fileurl="file://$PROJECT_DIR$/MP03Student/MP03Student.iml" filepath="$PROJECT_DIR$/MP03Student/MP03Student.iml" />
+      <module fileurl="file://$PROJECT_DIR$/Answer/MP03code/MP03code.iml" filepath="$PROJECT_DIR$/Answer/MP03code/MP03code.iml" />
+      <module fileurl="file://$PROJECT_DIR$/MP04Student/MP04Student.iml" filepath="$PROJECT_DIR$/MP04Student/MP04Student.iml" />
+      <module fileurl="file://$PROJECT_DIR$/Answer/MP04code/MP04code.iml" filepath="$PROJECT_DIR$/Answer/MP04code/MP04code.iml" />
+      <module fileurl="file://$PROJECT_DIR$/MP05Student/MP05Student.iml" filepath="$PROJECT_DIR$/MP05Student/MP05Student.iml" />
+      <module fileurl="file://$PROJECT_DIR$/Answer/MP05code/MP05code.iml" filepath="$PROJECT_DIR$/Answer/MP05code/MP05code.iml" />
+      <module fileurl="file://$PROJECT_DIR$/Midterm/Midterm.iml" filepath="$PROJECT_DIR$/Midterm/Midterm.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/object-oriented.iml" filepath="$PROJECT_DIR$/.idea/object-oriented.iml" />
+    </modules>
+  </component>
+</project>
