@@ -20,3 +20,7 @@ mysql 및 Java를 활용한 데이터베이스
 </br>
 #### user-interface >> 사용자 인터페이스
 UI 설계 및 분석 과제는 UI 개념을 기반으로 ppt제작
+</br>
+</br>
+#### programming-language>> 프로그래밍 언어론
+프로그래밍 언어의 특성(binding, Scope 등)
