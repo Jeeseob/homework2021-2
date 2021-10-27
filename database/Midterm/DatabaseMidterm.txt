@@ -1,0 +1,117 @@
+CREATE DATABASE db_midterm;
+USE db_midterm;
+
+
+CREATE TABLE Star (
+	Name varchar(30),
+	Age int,
+	Gender varchar(1),
+	primary key(Name));
+
+CREATE TABLE Studio (
+	Name varchar(30),
+	Address varchar(20),
+	Phone varchar(13),
+	primary key(Name));
+
+CREATE TABLE Producer (
+	Num varchar(5),
+	Name varchar(30),
+	Gender varchar(1),
+	Address varchar(20),
+	primary key(Num));
+
+CREATE TABLE Movie (
+	Title varchar(20),
+	Year int,
+	Length int,
+	Studio_Name varchar(30),
+	Producer_Num varchar(5),
+	primary key(Title,Year),
+	foreign key(Studio_Name) references Studio(Name),
+	foreign key(Producer_Num) references Producer(Num));
+
+CREATE TABLE Starsln (
+	Movie_Title varchar(20),
+	Movie_Year int,
+	Star_Name varchar(30),
+	primary key(Movie_Title,Movie_Year, Star_Name),
+	foreign key(Movie_Title,Movie_Year) references Movie(Title,Year),
+	foreign key(Star_Name) references Star(Name));
+
+
+insert into star values('Robert Downey', 48, "M");
+insert into star values('Chris Evans', 60, "M");
+insert into star values('Brad Pitt', 48, "M");
+insert into star values('Angenlina Jolie', 48, "F");
+insert into star values('Elsa', null, "F");
+insert into star values('Anna', null, "F");
+insert into star values('Jennifer', 45, "F");
+
+insert into Studio values('SM Studio', 'Korea', '111-1234');
+insert into Studio values('Disney Studio', 'USA', '222-1234');
+insert into Studio values('Fox Studio', 'USA', '333-1234');
+
+insert into Producer values('P1', 'Lucas', 'M', 'USA');
+insert into Producer values('P2', 'Spielberg', 'M', 'USA');
+insert into Producer values('P3', 'Lucas', 'F', 'USA');
+insert into Producer values('P4', 'Jennifer', 'F', 'USA');
+
+insert into Movie values('Star Wars', 1977, 95, 'Fox Studio', 'P1');
+insert into Movie values('Star Wars', 2010, 130, 'Fox Studio', 'P1');
+insert into Movie values('Star Wars', 2017, 120, 'Fox Studio', 'P2');
+insert into Movie values('Moana', 1990, 110, 'Disney Studio', 'P2');
+insert into Movie values('Lion King', 1990, 120, 'Disney Studio', 'P3');
+insert into Movie values('Lion King', 1995, 120, 'Disney Studio', 'P4');
+insert into Movie values('Frozen', 2013, 109, 'SM Studio', 'P4');
+insert into Movie values('Frozen', 2015, 109, 'SM Studio', 'P2');
+
+insert into Starsln values('Star Wars', 1977, 'Robert Downey');
+insert into Starsln values('Star Wars', 1977, 'Chris Evans');
+insert into Starsln values('Star Wars', 2010, 'Robert Downey');
+insert into Starsln values('Star Wars', 2010, 'Chris Evans');
+insert into Starsln values('Star Wars', 2010, 'Angenlina Jolie');
+insert into Starsln values('Star Wars', 2017, 'Elsa');
+insert into Starsln values('Frozen', 2013, 'Elsa');
+insert into Starsln values('Frozen', 2015, 'Anna');
+
+Select Title from Movie where length > 115;
+
+
+select Name, Address 
+	from Producer join Movie on Producer.Num = Movie.Producer_Num 
+	where Studio_Name = 'Disney studio' and Year = 1990;
+
+Select Name 
+	from star 
+	where age is null;
+
+Select Name 
+	from (Select Distinct Name, age 
+	from star join starsln on star.Name = Starsln.Star_Name 
+	where Movie_Title = 'Star Wars'  
+	order by age desc, Name) subtable; 
+
+select Name, count(*) 
+	from Studio join Movie on Studio.Name = Movie.Studio_Name
+	group by Name;
+
+select Name, Address, Phone, (select count(*) 
+	from Movie
+	where Studio.Name = Movie.Studio_Name)
+	as counter
+	from Studio;
+
+select Name, sum(length)
+	from Studio join Movie on Movie.Studio_Name = Studio.Name
+	group by Name
+	having count(*) >= 2;
+
+select Name, sum_length
+	from (select Name, sum(length) as sum_length, count(*) as counter
+		from Studio join Movie on Movie.Studio_Name = Studio.Name
+		group by Name) count_sum
+	where counter >= 2;
+
+
+
