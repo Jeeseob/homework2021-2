@@ -2,7 +2,9 @@ import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;
 
-public class PasswordDAOImpl extends DAOImpl<PasswordInfo,String>{
+public abstract class PasswordDAOImpl extends DAOImpl<PasswordInfo,String>{
+    //public abstract Connection createConnection();
+
     final static String DB_FILE_NAME = "Password.db";
 
     Connection connection = null;
@@ -13,6 +15,7 @@ public class PasswordDAOImpl extends DAOImpl<PasswordInfo,String>{
         super(dbTableName);
         try {
             connection = DriverManager.getConnection("jdbc:sqlite:" + DB_FILE_NAME);
+            //connection = createConnection();
             statement = connection.createStatement();
             statement.setQueryTimeout(30);  // set timeout to 30 sec.
             final String table = " (url text PRIMARY KEY, id text, password text)";
