@@ -1,0 +1,6 @@
+Employees(SSN(pk), name, lot, did)
+Departments(did(pk), dname, budget)
+Dependents(SSN(pk), lname(pk), fname)
+
+Manges(did(pk), ssn, since)
+Reports_To(supervisor(pk), subordinate(pk))
