@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<web-app>
+	<servlet>
+	   <servlet-name>PersonController</servlet-name>
+	   <servlet-class>controller.PersonController</servlet-class>
+	   <load-on-startup>1</load-on-startup>
+	</servlet>
+	
+	<servlet-mapping>
+	   <servlet-name>PersonController</servlet-name>
+	   <url-pattern>*.do</url-pattern>
+	</servlet-mapping>
+	
+	<welcome-file-list>
+		<welcome-file>index.jsp</welcome-file>
+	</welcome-file-list>
+</web-app>
