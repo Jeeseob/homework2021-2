@@ -10,8 +10,7 @@ int main(void)
 	char inmsg[80];
 	
 	// 파이프를 오픈
-	if((pd = open("./TESTFIFO", O_RDONLY)) == -1)
-	{
+	if((pd = open("./TESTFIFO", O_RDONLY)) == -1) {
 		// 열기 실패했다면 오류를 출력후 종료
 		perror("open");
 		exit(1);
@@ -24,8 +23,7 @@ int main(void)
 		write(1, inmsg, n);
 
 	// 읽은 문자열이 오류가 있다면
-	if  ( n == -1)		
-	{
+	if  ( n == -1) {
 		// 에러를 출력후 종료
 		perror("read");		
 		exit(1);
